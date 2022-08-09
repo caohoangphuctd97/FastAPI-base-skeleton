@@ -7,7 +7,7 @@ class LogConfig(BaseModel):
     """Logging configuration to be set for the server"""
 
     LOGGER_NAME: str = "__main__"
-    LOG_FORMAT: str = "%(levelprefix)s | %(asctime)s | %(name)s %(funcName)s.py L%(lineno)d | %(message)s"
+    LOG_FORMAT: str = "%(levelprefix)s | %(asctime)s | %(funcName)s.py L%(lineno)d | %(message)s"
     LOG_LEVEL: str = "DEBUG"
 
     # Logging config
@@ -34,6 +34,3 @@ class LogConfig(BaseModel):
 
 def configure_logging(log_level):
     dictConfig(LogConfig(LOG_LEVEL=log_level).dict())
-    logger = logging.getLogger("__main__")
-
-    logger.info("Logging Info")

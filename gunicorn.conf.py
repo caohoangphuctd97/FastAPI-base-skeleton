@@ -19,4 +19,3 @@ workers = min(multiprocessing.cpu_count() * 2 + 1, 9)
 worker_tmp_dir = "/dev/shm"
 
 worker_class = "uvicorn.workers.UvicornWorker"
-# logger_class = "cl_common_lib.gunicorn_logging.GStructLogging"

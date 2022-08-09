@@ -1,11 +1,5 @@
-generated/
-terraform/.terraform
-terraform/terraform.tfstate
-terraform/terraform.tfstate.backup
 venv/
-config-gcp/ 
 assets/*.json
-tests/integration_tests/*.sql.gz
 # Created by https://www.toptal.com/developers/gitignore/api/python,vscode
 # Edit at https://www.toptal.com/developers/gitignore?templates=python,vscode
 
