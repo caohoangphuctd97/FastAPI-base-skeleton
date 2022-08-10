@@ -1,8 +1,9 @@
 from sqlalchemy import MetaData as _MetaData
-from sqlalchemy.ext.asyncio import \
-    AsyncSession, AsyncEngine, create_async_engine
-from sqlalchemy.orm import \
-    Mapped, sessionmaker, declarative_base, declarative_mixin, declared_attr
+from sqlalchemy.ext.asyncio import AsyncEngine, create_async_engine, AsyncSession
+from sqlalchemy.orm import (
+    Mapped, sessionmaker, declarative_base,
+    declarative_mixin, declared_attr, Session
+)
 
 from app.config import DatabaseServiceConfig
 
@@ -45,7 +46,7 @@ async_engine: AsyncEngine = create_async_engine(
     future=True
 )
 
-Session = sessionmaker(     # type: ignore
+sess = sessionmaker(     # type: ignore
     autocommit=False,
     autoflush=False,
     bind=async_engine,

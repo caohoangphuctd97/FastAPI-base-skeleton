@@ -9,7 +9,7 @@ from starlette.responses import HTMLResponse
 
 from .__version__ import __version__
 from .config import config
-from .exceptions import configure_exceptions_handlers
+from .exceptions.handle_exceptions import configure_exceptions_handlers
 from .middlewares import configure_middlewares
 from .configure_logging import configure_logging
 

@@ -10,6 +10,7 @@ orjson==3.6.5
 ujson==5.1.0
 starlette-context==0.3.3
 structlog==21.1.0
+pydantic[email]
 
 SQLAlchemy[mypy]==1.4.19
 alembic==1.6.2
