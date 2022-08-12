@@ -12,6 +12,7 @@ class Customer(BaseMixin, BaseModel):    # type: ignore
         'id', pg.INTEGER(),
         autoincrement=True, nullable=False, primary_key=True)
     email = Column(Text, nullable=False)
+    password = Column(Text, nullable=False)
     phone = Column(Text, nullable=False)
     prefix = Column(Text, nullable=False)
     first_name = Column(Text, nullable=False)

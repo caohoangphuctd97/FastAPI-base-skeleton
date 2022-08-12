@@ -21,11 +21,14 @@ This is SaanSook API
 │   │   ├── __init__.py
 │   │   ├── custom_types.py # Custom paging header for response
 │   │   ├── health.py # The health endpoint
+│   │   ├── customers.py # The customers endpoint
+│   │   ├── devices.py # The devices endpoint
 │   ├── controllers # The controllers layer
 │   │   ├── __init__.py
 │   │   ├── helpers.py # Helper functions used for controllers
 │   │   ├── custom_types.py # Custom some error handler for controllers
-│   │   ├── saansook.py # The saansook controller
+│   │   ├── customers.py # The customers controller
+│   │   ├── devices.py # The devices controller
 │   ├── database # The models layer
 │   │   ├── __init__.py
 │   │   ├── config.py # Config naming convention for database
@@ -34,9 +37,7 @@ This is SaanSook API
 │   ├── __init__.py
 │   ├── _version.py
 │   ├── config.py # Config for main app (paging, auth0, database, datadog variables)
-│   ├── configure_datadog.py # Config for datadog
 │   ├── configure_logging.py # Config for logging
-│   ├── custom_types.py # some custom types (Http Exception)
 │   ├── main.py # Init app, declare route health, swagger
 │   ├── middlewares.py # Add middlewares for app (tracing, proxy header, cors)
 │   ├── schemas.py # Schemas for response models
@@ -74,10 +75,6 @@ virtualenv -p python3 venv
 # if necessary. Remember to change it back after testing.
 
 # Run app
-export AUTH0_ENABLED=0
-export AUTH0_AUDIENCE=test
-export AUTH0_DOMAIN=test
-export DD_TRACE_ENABLED=0
 export DATABASE_URI='postgresql://postgres:postgres@127.0.0.1:5432/saansook'
 source venv/bin/activate
 uvicorn --reload app.main:app
@@ -118,19 +115,4 @@ sudo -u postgres createdb saansook
 
 # Stop the database cluster after testing done
 sudo pg_ctlcluster 13 main stop
-```
-
-### Run tests
-
-```sh
-# Export needed variables
-export AUTH0_ENABLED=0
-export AUTH0_AUDIENCE=test
-export AUTH0_DOMAIN=test
-export DD_TRACE_ENABLED=0
-export DATABASE_URI='postgresql://postgres:postgres@127.0.0.1:5432/saansook'
-export UT_REPORT=.unittest_reports
-export HTML_COVERAGE=$UT_REPORT/.htmlcov/
-export XUNIT_RESULT=$UT_REPORT/coverage.xml
-export TEST_DIR=tests/unit_tests
 ```

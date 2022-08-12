@@ -7,7 +7,7 @@ class LogConfig(BaseModel):
     """Logging configuration to be set for the server"""
 
     LOGGER_NAME: str = "__main__"
-    LOG_FORMAT: str = "%(levelprefix)s | %(asctime)s | %(funcName)s.py L%(lineno)d | %(message)s"
+    LOG_FORMAT: str = "%(levelprefix)s [%(asctime)s] [%(funcName)s.py L%(lineno)d] %(message)s"
     LOG_LEVEL: str = "DEBUG"
 
     # Logging config

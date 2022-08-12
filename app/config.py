@@ -1,4 +1,4 @@
-from typing import Literal
+from typing import Literal, Optional
 from pydantic import BaseSettings, validator
 from pydantic.networks import PostgresDsn
 
@@ -56,8 +56,21 @@ class PagingConfig(BaseSettings):
     TOTAL_COUNT_HEADER: str = "X-Total-Count"
 
 
+class RedisSetting(BaseSettings):
+    redis_host: str
+    redis_port: str
+    redis_prefix: str = "api"
+
+
+class JWTSetting(BaseSettings):
+    authjwt_secret_key: Optional[str] = "MY_SECRET"
+    authjwt_algorithm: Optional[str] = "HS256"
+    authjwt_access_token_expires: Optional[int] = 900
+    authjwt_refresh_token_expires: Optional[int] = 86400
+
+
 class Config(BaseSettings):
-    APPLICATION_NAME = "SaanSook-api"
+    APPLICATION_NAME = "SaanSook API"
     DESCRIPTION = "SaanSook API"
 
     ENVIRONMENT: Literal["dev", "qa", "prod"] = "dev"
@@ -71,6 +84,8 @@ class Config(BaseSettings):
 
     db = DatabaseServiceConfig()
     paging = PagingConfig()
+    redis = RedisSetting()
+    jwt = JWTSetting()
 
     @property
     def OPENAPI_PREFIX(self) -> str:

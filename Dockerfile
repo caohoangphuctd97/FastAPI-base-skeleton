@@ -1,18 +1,17 @@
-FROM registry.gitlab.com/zonarsystems/consolidation-layer/data-platform-base-containers/fastapi-base:latest
-
-ARG SSH_PRIVATE_KEY_B64
+FROM python:3.8-buster
 
 WORKDIR /workdir
 ENV PYTHONPATH "${PYTHONPATH}:/workdir/app"
 
 COPY requirements.txt .
-
-RUN install-python-packages -r requirements.txt
-
-COPY alembic.ini .
-COPY gunicorn.conf.py .
-COPY migrations ./migrations
 COPY app ./app
+RUN pip install -r requirements.txt
+
+COPY .env .
+ENV DATABASE_URI='postgresql+psycopg2://postgres:admin@192.168.48.202:5432/saansook'
+COPY gunicorn.conf.py .
+
 
 EXPOSE 8080
-CMD ["ddtrace-run", "gunicorn", "--config", "./gunicorn.conf.py", "app.main:app"]
+# CMD ["uvicorn", "app.main:app", "--host", "0.0.0.0", "--port", "8000"]
+CMD ["gunicorn", "--config", "./gunicorn.conf.py", "app.main:app"]

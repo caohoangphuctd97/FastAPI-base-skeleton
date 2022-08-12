@@ -1,14 +1,21 @@
 import logging
 
+from redis import Redis
 from typing import List
+
 from fastapi import APIRouter, Depends, status
+from fastapi_jwt_auth import AuthJWT
 
 from sqlalchemy.ext.asyncio import AsyncSession
 
 from app import controllers
 from app.database.depends import create_session
-from app.schemas import CustomerSchema, CustomerObj
-
+from app.schemas import (
+        CustomerSchema, CustomerObj, ReqLoginSchema, ResLoginSchema,
+        ResCreateCustomer
+    )
+from app.utils.get_db import get_redis_db
+from app.utils.auth import depend_customer_access_token
 # from .custom_types import PaginationParams, PaginationResponseHeaders
 
 logger = logging.getLogger("__main__")
@@ -43,7 +50,7 @@ PATCH_CUSTOMER_STATUS_CODES = {
 
 @router.post(
     '',
-    response_model=CustomerObj,
+    response_model=ResCreateCustomer,
     responses=POST_CUSTOMER_STATUS_CODES,    # type: ignore
     status_code=status.HTTP_201_CREATED,
 )
@@ -54,6 +61,19 @@ async def create_customer(
     return await controllers.customers.create_customer(db, data)
 
 
+@router.post(
+    '/login',
+    response_model=ResLoginSchema,
+    responses=POST_CUSTOMER_STATUS_CODES,    # type: ignore
+    status_code=status.HTTP_200_OK,
+)
+async def login(
+        data: ReqLoginSchema,
+        db: AsyncSession = Depends(create_session),
+        redis_db: Redis = Depends(get_redis_db)):
+    return await controllers.customers.login(db, data, redis_db)
+
+
 @router.get(
     '',
     response_model=List[CustomerObj],
@@ -61,8 +81,10 @@ async def create_customer(
     status_code=status.HTTP_200_OK,
 )
 async def get_customers(
-        db: AsyncSession = Depends(create_session)):
-    logger.info(f'Get customers')
+    authorize: AuthJWT = Depends(depend_customer_access_token),
+    db: AsyncSession = Depends(create_session)
+):
+    logger.info('Get customers')
     return await controllers.customers.get_customers(db)
 
 
@@ -75,5 +97,5 @@ async def get_customers(
 async def get_customer_by_device_id(
         device_id: int,
         db: AsyncSession = Depends(create_session)):
-    logger.info(f'Get customers')
-    return await controllers.customers.get_customers_by_device_id(db, device_id)
+    logger.info('Get customers')
+    return await controllers.customers.get_customers_by_device_id(db, device_id)    # noqa: E501

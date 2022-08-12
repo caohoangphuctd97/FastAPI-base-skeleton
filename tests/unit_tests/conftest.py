@@ -83,10 +83,9 @@ def records(async_session):
 
 @pytest.fixture
 def app(reset_database):
-    with patch('cl_common_lib.logger.get_logger', MagicMock()):
-        from app.main import app
+    from app.main import app
 
-        yield app
+    yield app
 
 
 @pytest.fixture

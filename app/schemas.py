@@ -1,5 +1,5 @@
 from typing import Literal, Optional
-from datetime import datetime, date
+from datetime import date
 import re
 
 from pydantic import (
@@ -17,11 +17,12 @@ class DeviceSchema(BaseModel):
 
 
 class DeviceObj(DeviceSchema):
-    id : int
+    id: int
 
 
 class CustomerSchema(BaseModel):
     email: EmailStr
+    password: str
     phone: str
     prefix: str
     first_name: str
@@ -33,7 +34,6 @@ class CustomerSchema(BaseModel):
     height: NonNegativeInt
     group: NonNegativeInt
     device_id: Optional[int]
-    device: Optional[DeviceObj]
 
     @validator("phone")
     def phone_validation(cls, v):
@@ -49,4 +49,19 @@ class CustomerSchema(BaseModel):
 
 
 class CustomerObj(CustomerSchema):
-    id : int
+    id: int
+    device: Optional[DeviceObj]
+
+
+class ResCreateCustomer(CustomerSchema):
+    id: int
+
+
+class ReqLoginSchema(BaseModel):
+    email: EmailStr
+    password: str
+
+
+class ResLoginSchema(BaseModel):
+    access_token: str
+    refresh_token: str
