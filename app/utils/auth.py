@@ -150,7 +150,7 @@ def redis_update_refresh_for_access_token(
     authorize: AuthJWT,
     access_token: str,
     access_expires_time: int,
-    refresh_jti: str, 
+    refresh_jti: str,
     redis_db: Redis
 ):
     try:

@@ -20,6 +20,7 @@ psycopg2-binary==2.9.1
 fastapi_jwt_auth
 passlib
 redis
+bcrypt
 
 # For testing
 pytest==6.2.4
