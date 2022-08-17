@@ -81,7 +81,11 @@ uvicorn --reload app.main:app
 ```
 
 ## Run unit tests locally
-
+```
+cd test/unit_test
+coverage run --source=../../app -m pytest && coverage report -m && coverage html
+Open htmlcov/index.html to know detail
+```
 ### Install PostgreSQL
 
 ```shell

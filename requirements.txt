@@ -20,14 +20,17 @@ asyncpg==0.23.0
     # via -r requirements.in
 attrs==21.4.0
     # via pytest
+bcrypt==3.2.2
+    # via -r requirements.in
 certifi==2021.10.8
     # via
     #   httpcore
     #   httpx
     #   requests
 cffi==1.15.0
-bcrypt
-    # via cryptography
+    # via
+    #   bcrypt
+    #   cryptography
 charset-normalizer==2.0.10
     # via
     #   httpx
