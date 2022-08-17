@@ -1,6 +1,7 @@
 [
     {
         "email": "user1@example.com",
+        "password": "string123",
         "phone": "+84123234345",
         "prefix": "+84",
         "first_name": "Phuc",
@@ -16,6 +17,7 @@
     {
         "email": "user2@example.com",
         "phone": "+84123234454",
+        "password": "string123",
         "prefix": "+84",
         "first_name": "Phuc",
         "last_name": "Cao",

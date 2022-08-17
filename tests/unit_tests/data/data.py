@@ -1,5 +1,6 @@
 CUSTOMER_DATA_PASS = {
     "email": "test1@example.com",
+    "password": "string123",
     "phone": "+84123234345",
     "prefix": "+84",
     "first_name": "Phuc",
