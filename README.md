@@ -1,8 +1,8 @@
-# SaanSook API
+# FastAPI
 
 ## Getting Started
 
-This is SaanSook API
+This is FastAPI skeleton base
 
 ## Folder Structure
 
